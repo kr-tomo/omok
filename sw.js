@@ -4,7 +4,7 @@
  *       → assets/ 의 스프라이트를 교체하면 다음 방문 때 자동 반영된다.
  * 앱 구조(파일 목록)를 바꿨다면 CACHE 이름의 버전을 올려 주세요.
  */
-const CACHE = 'omok-v2';
+const CACHE = 'omok-v3';
 const ASSETS = [
   './',
   './index.html',

@@ -139,11 +139,15 @@ button.confirm { background: var(--danger); border-color: var(--danger); color: 
   :root { --ui-bottom: 196px; }
   #app {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: min(var(--W), calc(var(--H) - var(--ui-bottom))) minmax(0, 1fr);
+    /* 판 + 패널을 한 덩어리로 묶어 화면 세로 중앙에 둔다 (남는 여백은 위아래로 균등 분배) */
+    grid-template-rows: min(var(--W), calc(var(--H) - var(--ui-bottom))) auto;
+    align-content: center;
   }
   #panel {
     border-left: 0;
-    border-top: 1px solid var(--line);
+    background: transparent;
+    overflow: visible;
+    padding-bottom: 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "turn" "btns" "msg" "chips";
@@ -152,8 +156,8 @@ button.confirm { background: var(--danger); border-color: var(--danger); color: 
   }
   .title { display: none; }
   .turn { grid-area: turn; }
-  #msg { grid-area: msg; min-height: 0; }
-  .chips { grid-area: chips; }
+  #msg { grid-area: msg; min-height: 1.4em; text-align: center; }
+  .chips { grid-area: chips; justify-content: center; }
   .btns { grid-area: btns; flex-direction: row; }
   .btns button { flex: 1; padding: .5em .4em; }
 }
