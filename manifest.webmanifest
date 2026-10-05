@@ -1,0 +1,21 @@
+{
+  "name": "오목",
+  "short_name": "오목",
+  "description": "15×15 오목 — 규칙을 켜고 끌 수 있는 오프라인 웹 게임",
+  "lang": "ko",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#1d1812",
+  "theme_color": "#1d1812",
+  "categories": ["games", "board"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

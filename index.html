@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>오목</title>
+  <meta name="description" content="15×15 오목 — 규칙을 켜고 끌 수 있는 오프라인 웹 게임">
+  <meta name="theme-color" content="#1d1812">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="오목">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <main id="stage">
+      <canvas id="board" aria-label="오목판 15×15" role="img"></canvas>
+    </main>
+
+    <aside id="panel">
+      <h1 class="title">오목</h1>
+
+      <div class="turn" id="turn" aria-live="polite">
+        <span class="stone-icon black" id="turnIcon"></span>
+        <span id="turnText">흑 차례</span>
+        <span class="count" id="count">0수</span>
+      </div>
+
+      <p id="msg" role="status" aria-live="polite"></p>
+
+      <div class="btns">
+        <button id="undo" type="button">무르기</button>
+        <button id="restart" type="button">새 게임</button>
+        <button id="openRules" type="button" class="accent">규칙</button>
+      </div>
+
+      <ul id="chips" class="chips" aria-label="적용 중인 규칙"></ul>
+    </aside>
+  </div>
+
+  <dialog id="rulesDialog" aria-labelledby="rulesTitle">
+    <form method="dialog" class="sheet">
+      <header>
+        <h2 id="rulesTitle">규칙 설정</h2>
+        <button value="close" class="x" aria-label="닫기">✕</button>
+      </header>
+      <p class="note">바꾼 규칙은 <b>지금부터 두는 수</b>에만 적용돼요. 이미 놓인 돌은 다시 판정하지 않아요.</p>
+
+      <div class="row col">
+        <div class="label"><b>대전 상대</b><small>컴퓨터 모드에서는 컴퓨터가 자동으로 둬요</small></div>
+        <div class="seg" id="mode" role="radiogroup">
+          <button type="button" role="radio" data-v="pvp">2인</button>
+          <button type="button" role="radio" data-v="cpuB">컴퓨터 (내가 흑)</button>
+          <button type="button" role="radio" data-v="cpuW">컴퓨터 (내가 백)</button>
+        </div>
+      </div>
+
+      <div class="presets" role="group" aria-label="프리셋">
+        <button type="button" data-preset="free">자유 오목</button>
+        <button type="button" data-preset="no33">삼삼 금지</button>
+        <button type="button" data-preset="renju">렌주식</button>
+      </div>
+
+      <div class="row">
+        <div class="label"><b>삼삼 (3-3) 허용</b><small>열린 삼을 동시에 두 개 만드는 수</small></div>
+        <label class="switch"><input type="checkbox" id="allow33"><span></span></label>
+      </div>
+      <div class="row">
+        <div class="label"><b>사사 (4-4) 허용</b><small>사를 동시에 두 개 만드는 수</small></div>
+        <label class="switch"><input type="checkbox" id="allow44"><span></span></label>
+      </div>
+      <div class="row col">
+        <div class="label"><b>장목 (6목 이상)</b><small>6개 이상 이어진 경우의 처리</small></div>
+        <div class="seg" id="overline" role="radiogroup">
+          <button type="button" role="radio" data-v="win">승리</button>
+          <button type="button" role="radio" data-v="none">무효</button>
+          <button type="button" role="radio" data-v="forbid">금수</button>
+        </div>
+      </div>
+      <div class="row col">
+        <div class="label"><b>금수 적용 대상</b><small>삼삼·사사·장목 금지가 적용될 돌</small></div>
+        <div class="seg" id="restrict" role="radiogroup">
+          <button type="button" role="radio" data-v="black">흑만</button>
+          <button type="button" role="radio" data-v="both">흑·백 모두</button>
+        </div>
+      </div>
+
+      <h3>화면 표시</h3>
+      <div class="row">
+        <div class="label"><b>금수 자리 표시</b><small>지금 둘 수 없는 자리에 ✕ 표시</small></div>
+        <label class="switch"><input type="checkbox" id="showForbidden"><span></span></label>
+      </div>
+      <div class="row">
+        <div class="label"><b>수순 번호 표시</b><small>돌 위에 둔 순서를 표시</small></div>
+        <label class="switch"><input type="checkbox" id="showNumbers"><span></span></label>
+      </div>
+
+      <footer><button value="close" class="primary">닫기</button></footer>
+    </form>
+  </dialog>
+
+  <script src="rules.js"></script>
+  <script src="ai.js"></script>
+  <script src="sprite-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
